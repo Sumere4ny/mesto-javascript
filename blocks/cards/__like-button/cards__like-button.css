@@ -1,0 +1,12 @@
+.cards__like-button {
+  border: none;
+  padding: 0;
+  background-color: white;
+  height: min-content;
+  align-self: center;
+}
+
+.cards__like-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}

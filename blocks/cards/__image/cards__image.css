@@ -1,0 +1,14 @@
+.cards__image {
+  width:282px;
+  height: 282px;
+  vertical-align: bottom;
+  border-radius: 10px;
+  opacity: 1;
+  transition: 0.5s ease;
+}
+
+.cards__image:hover {
+  opacity: 0.5;
+  transition: 0.5s ease;
+  cursor: pointer;
+}

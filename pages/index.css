@@ -12,3 +12,8 @@
 @import '../blocks/profile/__profession/profile__profession.css';
 @import '../blocks/profile/__add-button/profile__add-button.css';
 @import '../blocks/cards/cards.css';
+@import '../blocks/cards/__item/cards__item.css';
+@import '../blocks/cards/__image/cards__image.css';
+@import '../blocks/cards/__description/cards__description.css';
+@import '../blocks/cards/__title/cards__title.css';
+@import '../blocks/cards/__like-button/cards__like-button.css';
