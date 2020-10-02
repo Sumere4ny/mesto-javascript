@@ -17,3 +17,5 @@
 @import '../blocks/cards/__description/cards__description.css';
 @import '../blocks/cards/__title/cards__title.css';
 @import '../blocks/cards/__like-button/cards__like-button.css';
+@import '../blocks/footer/footer.css';
+@import '../blocks/footer/__copyright/footer__copyright.css';
