@@ -3,3 +3,11 @@
 @import '../blocks/page/page.css';
 @import '../blocks/header/header.css';
 @import '../blocks/header/__logo/header-logo.css';
+@import '../blocks/content/content.css';
+@import '../blocks/profile/profile.css';
+@import '../blocks/profile/__avatar/profile__avatar.css';
+@import '../blocks/profile/__title/profile__title.css';
+@import '../blocks/profile/__name/profile__name.css';
+@import '../blocks/profile/__edit-button/profile__edit-button.css';
+@import '../blocks/profile/__profession/profile__profession.css';
+@import '../blocks/profile/__add-button/profile__add-button.css';
