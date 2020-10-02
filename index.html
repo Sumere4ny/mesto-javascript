@@ -1,60 +1,42 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Павел Киселев">
-  <link rel="stylesheet" href="pages/index.css">
-  <title>Место</title>
-</head>
-<body class="page">
-  <header class="header">
-    <img class="header__logo" src="./images/logo.svg" alt="Лого проекта">
-  </header>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Павел Киселев">
+    <link rel="stylesheet" href="pages/index.css">
+    <title>Место</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <img class="header__logo" src="./images/logo.svg" alt="Лого проекта">
+    </header>
 
-  <main class="content">
+    <main class="content">
 
-    <section class="profile">
-      <img src="images/avatar.jpg" class="profile__avatar" alt="Аватар профиля" >
-      <div class="profile__info">
-        <div class="profile__title">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button" type="button"></button>
+      <section class="profile">
+        <img src="images/avatar.jpg" class="profile__avatar" alt="Аватар профиля" >
+        <div class="profile__info">
+          <div class="profile__title">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button" type="button"></button>
+          </div>
+          <p class="profile__profession">Исследователь океана</p>
         </div>
-        <p class="profile__profession">Исследователь океана</p>
-      </div>
-      <button class="profile__add-button" type="button"></button>
-    </section>
+        <button class="profile__add-button" type="button"></button>
+      </section>
 
-    <section class="cards">
-      <div class="cards__item">
-        <img class="cards__image" src="./images/karachaevsk.jpg" alt="Старинный храм">
-        <div class="cards__description">
-            <h2 class="cards__title">Карачаевск</h2>
-            <button class="cards__like-button" type="button">
-                <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
-            </button>
+      <section class="cards">
+        <div class="cards__item">
+          <img class="cards__image" src="./images/karachaevsk.jpg" alt="Старинный храм">
+          <div class="cards__description">
+              <h2 class="cards__title">Карачаевск</h2>
+              <button class="cards__like-button" type="button">
+                  <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
+              </button>
+          </div>
         </div>
-      </div>
-      <div class="cards__item">
-        <img class="cards__image" src="./images/mountain_elbrus.jpg" alt="Эльбрус">
-        <div class="cards__description">
-            <h2 class="cards__title">Гора Эльбрус</h2>
-            <button class="cards__like-button" type="button">
-                <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
-            </button>
-        </div>
-      </div>
-      <div class="cards__item">
-        <img class="cards__image" src="./images/mountain_dombay.jpg" alt="Домбай-Ульген">
-        <div class="cards__description">
-            <h2 class="cards__title">Домбай</h2>
-            <button class="cards__like-button" type="button">
-                <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
-            </button>
-        </div>
-      </div>
-      <div class="cards__item">
+        <div class="cards__item">
           <img class="cards__image" src="./images/mountain_elbrus.jpg" alt="Эльбрус">
           <div class="cards__description">
               <h2 class="cards__title">Гора Эльбрус</h2>
@@ -62,31 +44,49 @@
                   <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
               </button>
           </div>
-      </div>
-      <div class="cards__item">
-        <img class="cards__image" src="./images/mountain_dombay.jpg" alt="Домбай-Ульген">
-        <div class="cards__description">
-            <h2 class="cards__title">Домбай</h2>
-            <button class="cards__like-button" type="button">
-                <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
-            </button>
         </div>
-      </div>
-      <div class="cards__item">
-        <img class="cards__image" src="./images/karachaevsk.jpg" alt="Старинный храм">
-        <div class="cards__description">
-            <h2 class="cards__title">Карачаево-Черкессия</h2>
-            <button class="cards__like-button" type="button">
-                <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
-            </button>
+        <div class="cards__item">
+          <img class="cards__image" src="./images/mountain_dombay.jpg" alt="Домбай-Ульген">
+          <div class="cards__description">
+              <h2 class="cards__title">Домбай</h2>
+              <button class="cards__like-button" type="button">
+                  <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
+              </button>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+        <div class="cards__item">
+            <img class="cards__image" src="./images/mountain_elbrus.jpg" alt="Эльбрус">
+            <div class="cards__description">
+                <h2 class="cards__title">Гора Эльбрус</h2>
+                <button class="cards__like-button" type="button">
+                    <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
+                </button>
+            </div>
+        </div>
+        <div class="cards__item">
+          <img class="cards__image" src="./images/mountain_dombay.jpg" alt="Домбай-Ульген">
+          <div class="cards__description">
+              <h2 class="cards__title">Домбай</h2>
+              <button class="cards__like-button" type="button">
+                  <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
+              </button>
+          </div>
+        </div>
+        <div class="cards__item">
+          <img class="cards__image" src="./images/karachaevsk.jpg" alt="Старинный храм">
+          <div class="cards__description">
+              <h2 class="cards__title">Карачаево-Черкессия</h2>
+              <button class="cards__like-button" type="button">
+                  <img class="cards__like-image" src="./images/like-button.svg" alt="Лайк">
+              </button>
+          </div>
+        </div>
+      </section>
+    </main>
 
-  <footer class="footer">
+    <footer class="footer">
 
-  </footer>
+    </footer>
 
-</body>
+  </body>
 </html>
