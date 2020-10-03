@@ -11,13 +11,14 @@
 
 @media screen and (max-width: 920px) {
     .cards {
-        grid-template-columns: repeat(2, 282px);
-        justify-content: center;
+      grid-template-columns: repeat(2, 282px);
+      justify-content: center;
     }
 }
 
 @media screen and (max-width: 600px) {
     .cards {
-        grid-template-columns: repeat(1, 282px);
+      grid-template-columns: repeat(1, 282px);
+      margin-top: 40px;
     }
 }
