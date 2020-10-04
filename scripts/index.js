@@ -14,13 +14,17 @@ const popupProfession = formElement.querySelector('.popup__profession');
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 
-// Подставляем textContent элементов профиля в значения полей формы
-popupNameField.value = profileName.textContent;
-popupProfession.value = profileProfession.textContent;
-
 // Определяем функцию для показа/скрытия
 const popupToggle = () => {
   popup.classList.toggle('popup_opened');
+};
+
+// Составляем функцию на открытие попапа
+function popupOpen() {
+  // Подставляем textContent элементов профиля в значения полей формы
+  popupNameField.value = profileName.textContent;
+  popupProfession.value = profileProfession.textContent;
+  popupToggle();
 }
 
 // Обработчик «отправки» формы, хотя пока
@@ -38,7 +42,7 @@ function formSubmitHandler (evt) {
 }
 
 // Вешаем обработчики событий для кнопок профиля и попапа
-profileEditButton.addEventListener('click', popupToggle);
+profileEditButton.addEventListener('click', popupOpen);
 popupCloseButton.addEventListener('click', popupToggle);
 
 // Прикрепляем обработчик к форме:
