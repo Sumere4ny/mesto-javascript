@@ -24,6 +24,5 @@
 @import '../blocks/popup/__close-button/popup__close-button.css';
 @import '../blocks/popup/__title/popup__title.css';
 @import '../blocks/popup/__form/popup__form.css';
-@import '../blocks/popup/__name-field/popup__name-field.css';
-@import '../blocks/popup/__profession/popup__profession.css';
+@import '../blocks/popup/__input/popup__input.css';
 @import '../blocks/popup/__submit/popup__submit.css';

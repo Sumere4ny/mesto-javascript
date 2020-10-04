@@ -5,9 +5,8 @@
   padding-right: 21px;
   padding-left: 21px;
   margin: 0;
-  max-width: 190px;
+  max-width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 200px;
 }
