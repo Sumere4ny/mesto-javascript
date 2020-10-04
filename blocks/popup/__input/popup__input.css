@@ -1,4 +1,4 @@
-.popup__name-field {
+.popup__input {
   width: 100%;
   align-self: center;
   padding: 0;
@@ -10,4 +10,8 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 17px;
+}
+
+.popup__input:last-of-type {
+  margin-bottom: 47px;
 }

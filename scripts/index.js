@@ -7,8 +7,8 @@ const formElement = popup.querySelector('.popup__form');
 const popupCloseButton = popup.querySelector('.popup__close-button');
 
 // Находим поля формы в DOM
-const popupNameField = formElement.querySelector('.popup__name-field');
-const popupProfession = formElement.querySelector('.popup__profession');
+const popupNameField = formElement.querySelector('.popup__input_name-field');
+const popupProfession = formElement.querySelector('.popup__input_profession');
 
 // Выбераем элементы, куда должны быть вставлены значения полей
 const profileName = document.querySelector('.profile__name');
