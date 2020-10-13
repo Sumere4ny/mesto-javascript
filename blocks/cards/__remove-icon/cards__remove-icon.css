@@ -1,0 +1,17 @@
+.cards__remove-icon{
+    position: absolute;
+    padding: 0;
+    top: 18px;
+    right: 15px;
+    background-color: transparent;
+    border: none;
+}
+
+.cards__remove-icon:focus{
+    outline: none;
+}
+
+.cards__remove-icon:hover{
+    opacity: 0.6;    
+    cursor: pointer;
+}

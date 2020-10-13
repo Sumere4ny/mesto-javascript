@@ -45,6 +45,67 @@ function formSubmitHandler (evt) {
 profileEditButton.addEventListener('click', popupOpen);
 popupCloseButton.addEventListener('click', popupToggle);
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
+// Прикрепляем обработчик к форме, работающий на отправку
 formElement.addEventListener('submit', formSubmitHandler);
+
+// Определяем массив исхоного набора объектов с изображениями и подписями для карточек
+const initialCards = [
+  {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+// Подключаем логику запонения карточек из массива исходных объектов
+const cardsSection = document.querySelector('.cards');
+
+initialCards.forEach(addNewCard);
+
+function addNewCard(item) {
+  cardsSection.prepend(createCard(item));
+}
+
+function createCard(item) {
+    const cardTemplate = document.querySelector('#card-template').content;
+    const newCard = cardTemplate.cloneNode(true);
+
+    newCard.querySelector('.cards__image').src = item.link;
+    newCard.querySelector('.cards__title').textContent = item.name;
+
+    const likeButton = newCard.querySelector('.cards__like-button');
+
+    likeButton.addEventListener('click', function(evt) {
+        evt.target.classList.toggle('cards__like-button_active');
+    });
+
+    const removeButton = newCard.querySelector('.cards__remove-button');
+
+    /* removeButton.addEventListener('click', function() {
+        const post = removeButton.closest('.cards__item');
+
+        post.remove();
+    }); */
+
+    return newCard;
+}
+
