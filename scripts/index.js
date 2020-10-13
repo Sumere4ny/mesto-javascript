@@ -100,11 +100,11 @@ function createCard(item) {
 
     const removeButton = newCard.querySelector('.cards__remove-button');
 
-    /* removeButton.addEventListener('click', function() {
+    removeButton.addEventListener('click', function() {
         const post = removeButton.closest('.cards__item');
 
         post.remove();
-    }); */
+    });
 
     return newCard;
 }
