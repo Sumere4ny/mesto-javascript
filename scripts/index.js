@@ -1,21 +1,21 @@
 // Определяем и присваеваем значок редактирования профиля и скрытый попап
 const profileEditButton = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
+const popupProfileEdit = document.querySelector('.popup_type_edit-profile');
 
 // Определяем и присваеваем форму и значок закрытия попапа
-const formElement = popup.querySelector('.popup__form');
-const popupCloseButton = popup.querySelector('.popup__close-button');
+const formProfileEdit = popupProfileEdit.querySelector('.popup__form');
+const popupCloseButton = popupProfileEdit.querySelector('.popup__close-button');
 
 // Находим поля формы в DOM
-const popupNameField = formElement.querySelector('.popup__input_name-field');
-const popupProfession = formElement.querySelector('.popup__input_profession');
+const popupNameField = formProfileEdit.querySelector('.popup__input_name-field');
+const popupProfession = formProfileEdit.querySelector('.popup__input_profession');
 
 // Выбераем элементы, куда должны быть вставлены значения полей
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 
 // Определяем функцию для показа/скрытия
-const popupToggle = () => {
+const popupToggle = (popup) => {
   popup.classList.toggle('popup_opened');
 };
 
@@ -24,7 +24,7 @@ function popupOpen() {
   // Подставляем textContent элементов профиля в значения полей формы
   popupNameField.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
-  popupToggle();
+  popupToggle(popupProfileEdit);
 }
 
 // Обработчик «отправки» формы, хотя пока
@@ -38,15 +38,45 @@ function formSubmitHandler (evt) {
     profileProfession.textContent = popupProfession.value;
 
     // Закрываем попап
-    popupToggle();
+    popupToggle(popupProfileEdit);
 }
 
 // Вешаем обработчики событий для кнопок профиля и попапа
 profileEditButton.addEventListener('click', popupOpen);
-popupCloseButton.addEventListener('click', popupToggle);
+popupCloseButton.addEventListener('click', () => {
+  popupToggle(popupProfileEdit);
+});
 
 // Прикрепляем обработчик к форме, работающий на отправку
-formElement.addEventListener('submit', formSubmitHandler);
+formProfileEdit.addEventListener('submit', formSubmitHandler);
+
+// Определяем основные элементы добавления новой карточки
+const addNewcardButton = document.querySelector('.profile__add-button');
+const popupAddNewCard = document.querySelector('.popup_type_add-new-card');
+
+// Определяем и присваеваем форму и значок закрытия попапа
+const formAddNewCard = popupAddNewCard.querySelector('.popup__form');
+const closeCardButton = popupAddNewCard.querySelector('.popup__close-button');
+
+// Находим поля формы в DOM
+const popupPlaceName = formAddNewCard.querySelector('.popup__input_place-name');
+const popupPlaceLink = formAddNewCard.querySelector('.popup__input_place-link');
+
+// Создаем элементарный обработчик формы при отправке созданной карточки нового места
+function newCardSubmitHandler(evt) {
+  evt.preventDefault(); // Предотвращаем логику по умолчанию
+  // Создаем новый объект для карточки на основе данных из формы
+  const item = {
+    name: popupPlaceName.value,
+    link: popupPlaceLink.value
+  }
+  // Вызываем функцию добавления новой карточки
+  addNewCard(item);
+  popupToggle(popupAddNewCard); // Закрываем отправленную форму
+  // Очищаем значения полей в закрытом попапе
+  popupPlaceName.value = '';
+  popupPlaceLink.value = '';
+}
 
 // Определяем массив исхоного набора объектов с изображениями и подписями для карточек
 const initialCards = [
@@ -109,3 +139,10 @@ function createCard(item) {
     return newCard;
 }
 
+// Вешаем основные слушатели на открытие/закрытие попапа добавления нового места
+addNewcardButton.addEventListener('click', () => { popupToggle(popupAddNewCard); });
+
+closeCardButton.addEventListener('click', () => { popupToggle(popupAddNewCard); });
+
+// Вешаем обработчик формы добавления нового места на сабмит при ее отправке
+formAddNewCard.addEventListener('submit', newCardSubmitHandler);
