@@ -78,6 +78,27 @@ function newCardSubmitHandler(evt) {
   popupPlaceLink.value = '';
 }
 
+// Назначаем константу для последнего попапа в DOM для переключения открывающего класса
+const popupTypeLightbox = document.querySelector('.popup_type_lightbox');
+
+// Также отбираем элемент самого лайтбокса для удобства работы
+const lightbox = popupTypeLightbox.querySelector('.lightbox')
+
+// Навешиваем листенер на иконку закрытия попапа, в данном случае нашего лайтбокса
+lightbox.querySelector('.popup__close-button').addEventListener('click', () => {
+  popupToggle(popupTypeLightbox)
+});
+
+// И заранее определяем функцию для открытия попапа с изображениями, она понадобится при сборке карточек
+function viewImage(item) {
+
+  popupToggle(popupTypeLightbox);
+
+  lightbox.querySelector('.lightbox__image').src = item.link;
+  lightbox.querySelector('.lightbox__image-title').textContent = item.name;
+
+}
+
 // Определяем массив исхоного набора объектов с изображениями и подписями для карточек
 const initialCards = [
   {
@@ -106,7 +127,7 @@ const initialCards = [
   }
 ];
 
-// Подключаем логику запонения карточек из массива исходных объектов
+// Подключаем логику заполнения карточек из массива исходных объектов
 const cardsSection = document.querySelector('.cards');
 
 initialCards.forEach(addNewCard);
@@ -126,6 +147,12 @@ function createCard(item) {
 
     likeButton.addEventListener('click', function(evt) {
         evt.target.classList.toggle('cards__like-button_active');
+    });
+
+    const imageArea = newCard.querySelector('.cards__image');
+
+    imageArea.addEventListener('click', () => {
+      viewImage(item);
     });
 
     const removeButton = newCard.querySelector('.cards__remove-button');
