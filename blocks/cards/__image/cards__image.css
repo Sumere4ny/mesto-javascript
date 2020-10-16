@@ -2,7 +2,8 @@
   width:282px;
   height: 282px;
   vertical-align: bottom;
-  border-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   opacity: 1;
   transition: 0.5s ease;
 }
