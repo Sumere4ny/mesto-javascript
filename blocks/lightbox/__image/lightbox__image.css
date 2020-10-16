@@ -1,10 +1,16 @@
 .lightbox__image {
-  max-height: 80vh;
-  max-width: 80vw;
+  max-height: 75vh;
+  max-width: 75vw;
 }
 
 @media screen and (max-width: 600px) {
   .lightbox__image {
     max-width: 282px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .lightbox__image {
+    max-width: 240px;
   }
 }

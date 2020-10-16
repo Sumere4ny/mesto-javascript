@@ -21,9 +21,10 @@
   opacity: 0.8;
 }
 
-@media screen and (max-width: 592px) {
+@media screen and (max-width: 510px) {
   .popup__submit {
     padding-top: 14px;
     padding-bottom: 14px;
+    font-size: 16px;
   }
 }

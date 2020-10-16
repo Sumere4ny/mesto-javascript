@@ -15,3 +15,19 @@
 .popup__input:last-of-type {
   margin-bottom: 47px;
 }
+
+@media screen and (max-width: 510px) {
+  .popup__input {
+      font-size: 12px;
+      line-height: 1.25;
+      padding-bottom: 9px;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .popup__input:last-of-type {
+    margin-bottom: 25px;
+  }
+}
+
+
