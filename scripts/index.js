@@ -15,21 +15,21 @@ const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 
 // Определяем функцию для показа/скрытия
-const popupToggle = (popup) => {
+const togglePopup = (popup) => {
   popup.classList.toggle('popup_opened');
 };
 
 // Составляем функцию на открытие попапа
-function popupOpen() {
+function openPopup() {
   // Подставляем textContent элементов профиля в значения полей формы
   popupNameField.value = profileName.textContent;
   popupProfession.value = profileProfession.textContent;
-  popupToggle(popupProfileEdit);
+  togglePopup(popupProfileEdit);
 }
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function formSubmitHandler (evt) {
+function handleFormSubmit (evt) {
 
     evt.preventDefault(); // Предотвращаем логику по умолчанию
 
@@ -38,17 +38,17 @@ function formSubmitHandler (evt) {
     profileProfession.textContent = popupProfession.value;
 
     // Закрываем попап
-    popupToggle(popupProfileEdit);
+    togglePopup(popupProfileEdit);
 }
 
 // Вешаем обработчики событий для кнопок профиля и попапа
-profileEditButton.addEventListener('click', popupOpen);
+profileEditButton.addEventListener('click', openPopup);
 popupCloseButton.addEventListener('click', () => {
-  popupToggle(popupProfileEdit);
+  togglePopup(popupProfileEdit);
 });
 
 // Прикрепляем обработчик к форме, работающий на отправку
-formProfileEdit.addEventListener('submit', formSubmitHandler);
+formProfileEdit.addEventListener('submit', handleFormSubmit);
 
 // Определяем основные элементы добавления новой карточки
 const addNewcardButton = document.querySelector('.profile__add-button');
@@ -62,17 +62,52 @@ const closeCardButton = popupAddNewCard.querySelector('.popup__close-button');
 const popupPlaceName = formAddNewCard.querySelector('.popup__input_place-name');
 const popupPlaceLink = formAddNewCard.querySelector('.popup__input_place-link');
 
+// Подключаем логику заполнения карточек из массива исходных объектов
+const cardsSection = document.querySelector('.cards');
+
+function createCard(item) {
+    const cardTemplate = document.querySelector('#card-template').content;
+    const newCard = cardTemplate.cloneNode(true);
+    const imageArea = newCard.querySelector('.cards__image');
+
+    imageArea.src = item.link;
+    newCard.querySelector('.cards__title').textContent = item.name;
+
+    const likeButton = newCard.querySelector('.cards__like-button');
+
+    likeButton.addEventListener('click', (evt) => {
+        evt.target.classList.toggle('cards__like-button_active');
+    });
+
+    imageArea.addEventListener('click', () => {
+      viewImage(item);
+    });
+
+    const removeButton = newCard.querySelector('.cards__remove-button');
+
+    removeButton.addEventListener('click', () => {
+        const post = removeButton.closest('.cards__item');
+        post.remove();
+    });
+
+    return newCard;
+}
+
+function addNewCard(item) {
+  cardsSection.prepend(createCard(item));
+}
+
 // Создаем элементарный обработчик формы при отправке созданной карточки нового места
-function newCardSubmitHandler(evt) {
+function handlePlaceSubmit(evt) {
   evt.preventDefault(); // Предотвращаем логику по умолчанию
   // Создаем новый объект для карточки на основе данных из формы
   const item = {
     name: popupPlaceName.value,
     link: popupPlaceLink.value
-  }
+  };
   // Вызываем функцию добавления новой карточки
   addNewCard(item);
-  popupToggle(popupAddNewCard); // Закрываем отправленную форму
+  togglePopup(popupAddNewCard); // Закрываем отправленную форму
   // Очищаем значения полей в закрытом попапе
   popupPlaceName.value = '';
   popupPlaceLink.value = '';
@@ -82,21 +117,18 @@ function newCardSubmitHandler(evt) {
 const popupTypeLightbox = document.querySelector('.popup_type_lightbox');
 
 // Также отбираем элемент самого лайтбокса для удобства работы
-const lightbox = popupTypeLightbox.querySelector('.lightbox')
+const lightbox = popupTypeLightbox.querySelector('.lightbox');
 
 // Навешиваем листенер на иконку закрытия попапа, в данном случае нашего лайтбокса
 lightbox.querySelector('.popup__close-button').addEventListener('click', () => {
-  popupToggle(popupTypeLightbox)
+  togglePopup(popupTypeLightbox);
 });
 
 // И заранее определяем функцию для открытия попапа с изображениями, она понадобится при сборке карточек
 function viewImage(item) {
-
-  popupToggle(popupTypeLightbox);
-
+  togglePopup(popupTypeLightbox);
   lightbox.querySelector('.lightbox__image').src = item.link;
   lightbox.querySelector('.lightbox__image-title').textContent = item.name;
-
 }
 
 // Определяем массив исхоного набора объектов с изображениями и подписями для карточек
@@ -127,49 +159,12 @@ const initialCards = [
   }
 ];
 
-// Подключаем логику заполнения карточек из массива исходных объектов
-const cardsSection = document.querySelector('.cards');
-
 initialCards.forEach(addNewCard);
 
-function addNewCard(item) {
-  cardsSection.prepend(createCard(item));
-}
-
-function createCard(item) {
-    const cardTemplate = document.querySelector('#card-template').content;
-    const newCard = cardTemplate.cloneNode(true);
-
-    newCard.querySelector('.cards__image').src = item.link;
-    newCard.querySelector('.cards__title').textContent = item.name;
-
-    const likeButton = newCard.querySelector('.cards__like-button');
-
-    likeButton.addEventListener('click', function(evt) {
-        evt.target.classList.toggle('cards__like-button_active');
-    });
-
-    const imageArea = newCard.querySelector('.cards__image');
-
-    imageArea.addEventListener('click', () => {
-      viewImage(item);
-    });
-
-    const removeButton = newCard.querySelector('.cards__remove-button');
-
-    removeButton.addEventListener('click', function() {
-        const post = removeButton.closest('.cards__item');
-
-        post.remove();
-    });
-
-    return newCard;
-}
-
 // Вешаем основные слушатели на открытие/закрытие попапа добавления нового места
-addNewcardButton.addEventListener('click', () => { popupToggle(popupAddNewCard); });
+addNewcardButton.addEventListener('click', () => { togglePopup(popupAddNewCard); });
 
-closeCardButton.addEventListener('click', () => { popupToggle(popupAddNewCard); });
+closeCardButton.addEventListener('click', () => { togglePopup(popupAddNewCard); });
 
 // Вешаем обработчик формы добавления нового места на сабмит при ее отправке
-formAddNewCard.addEventListener('submit', newCardSubmitHandler);
+formAddNewCard.addEventListener('submit', handlePlaceSubmit);
