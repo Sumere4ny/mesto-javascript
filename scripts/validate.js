@@ -1,5 +1,11 @@
 const enableValidation = (params) => {
+  Array.from(document.querySelectorAll(params.formSelector)).forEach((form) => {
+    form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });
 
+    setEventListeners(form, params);
+  });
 }
 
 enableValidation({
