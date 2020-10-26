@@ -15,9 +15,31 @@ const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 
 // Определяем функцию для показа/скрытия
-const togglePopup = (popup) => {
+function togglePopup(popup) {
   popup.classList.toggle('popup_opened');
-};
+  if (popup.classList.contains('popup_opened')) {
+    popup.addEventListener('click', closePopupByOverlay);
+  }
+}
+
+// Определяем коллбэк на закрытие попапа по нажатию на 'Overlay'
+function closePopupByOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    const popupOpened = document.querySelector('.popup_opened');
+    togglePopup(popupOpened);
+  }
+}
+
+// Определяем функцию на закрытие попапа по нажатию на 'Escape'
+function closePopupByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    togglePopup(popupOpened);
+  };
+}
+
+// И сразу вешаем слушатель для 'Escape' на весь документ
+document.addEventListener('keydown', closePopupByEscape);
 
 // Составляем функцию на открытие попапа
 function openPopup() {
