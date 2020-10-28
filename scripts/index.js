@@ -14,6 +14,8 @@ const popupProfession = formProfileEdit.querySelector('.popup__input_profession'
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 
+const keyEscape = 'Escape';
+
 function clearFormState(popup) {
   const formInputFields = Array.from(popup.querySelectorAll('.popup__input'));
   const submit = popup.querySelector('.popup__submit');
@@ -46,7 +48,7 @@ function closePopupByOverlay(evt) {
 // Определяем функцию на закрытие попапа по нажатию на 'Escape'
 function closePopupByEscape(evt) {
   const popupOpened = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape') {
+  if (evt.key === keyEscape) {
     togglePopup(popupOpened);
   };
 }
