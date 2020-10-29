@@ -18,9 +18,10 @@ const keyEscape = 'Escape';
 
 function clearFormState(popup) {
   const formInputFields = Array.from(popup.querySelectorAll('.popup__input'));
+  const popupForm = popup.querySelector('.popup__form');
   const submit = popup.querySelector('.popup__submit');
+  popupForm.reset();
   formInputFields.forEach((field) => {
-    field.value = '';
     hideInputError(popup, field, {inputErrorClass: 'popup__input_type_error'});
     submit.classList.add('popup__submit_disabled');
     submit.setAttribute('disabled', true);
