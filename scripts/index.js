@@ -1,3 +1,5 @@
+import {FormValidator} from './FormValidator.js';
+
 // Определяем и присваеваем значок редактирования профиля и скрытый попап
 const profileEditButton = document.querySelector('.profile__edit-button');
 const popupProfileEdit = document.querySelector('.popup_type_edit-profile');
@@ -16,16 +18,19 @@ const profileProfession = document.querySelector('.profile__profession');
 
 const keyEscape = 'Escape';
 
+const validationConfig = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_visible'
+}
+
 function clearFormState(popup) {
   const formInputFields = Array.from(popup.querySelectorAll('.popup__input'));
   const popupForm = popup.querySelector('.popup__form');
   const submit = popup.querySelector('.popup__submit');
   popupForm.reset();
-  formInputFields.forEach((field) => {
-    hideInputError(popup, field, {inputErrorClass: 'popup__input_type_error'});
-    submit.classList.add('popup__submit_disabled');
-    submit.setAttribute('disabled', true);
-  });
 }
 
 // Определяем функцию для показа/скрытия
@@ -87,6 +92,8 @@ popupCloseButton.addEventListener('click', () => {
 
 // Прикрепляем обработчик к форме, работающий на отправку
 formProfileEdit.addEventListener('submit', handleFormSubmit);
+
+// --------------------------------------------------------------------------------------------------------
 
 // Определяем основные элементы добавления новой карточки
 const addNewcardButton = document.querySelector('.profile__add-button');
@@ -206,3 +213,10 @@ closeCardButton.addEventListener('click', () => { togglePopup(popupAddNewCard); 
 
 // Вешаем обработчик формы добавления нового места на сабмит при ее отправке
 formAddNewCard.addEventListener('submit', handlePlaceSubmit);
+
+//Экземпляры класса для валидации каждой формы
+const profileEditValidator = new FormValidator(validationConfig, formProfileEdit);
+profileEditValidator.enableValidation();
+
+const addNewPlaceValidator = new FormValidator(validationConfig, formAddNewCard);
+addNewPlaceValidator.enableValidation();

@@ -28,7 +28,7 @@ function toggleSubmitButtonState (formInputFields, submit, {inactiveButtonClass}
     submit.classList.remove(inactiveButtonClass);
     submit.removeAttribute('disabled');
   }
-};
+}
 // Определяем логику добавления слушателей для инпутов, для этого формируем массив
 function setEventListeners(form, {inputSelector, submitButtonSelector, ...rest}) {
   const formInputFields = Array.from(form.querySelectorAll(inputSelector));
