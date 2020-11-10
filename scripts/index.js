@@ -26,13 +26,6 @@ const validationConfig = {
   errorClass: 'popup__input-error_visible'
 }
 
-function clearFormState(popup) {
-  const formInputFields = Array.from(popup.querySelectorAll('.popup__input'));
-  const popupForm = popup.querySelector('.popup__form');
-  const submit = popup.querySelector('.popup__submit');
-  popupForm.reset();
-}
-
 // Определяем функцию для показа/скрытия
 function togglePopup(popup) {
   popup.classList.toggle('popup_opened');
@@ -220,3 +213,11 @@ profileEditValidator.enableValidation();
 
 const addNewPlaceValidator = new FormValidator(validationConfig, formAddNewCard);
 addNewPlaceValidator.enableValidation();
+
+function clearFormState(popup) {
+  if (popup === popupProfileEdit) {
+    profileEditValidator.clearFormOnClose();
+  } else if (popup === popupAddNewCard) {
+    addNewPlaceValidator.clearFormOnClose();
+  }
+}
