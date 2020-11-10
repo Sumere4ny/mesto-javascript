@@ -1,4 +1,5 @@
 import {FormValidator} from './FormValidator.js';
+import {initialCards, validationConfig} from './constants.js'
 
 // Определяем и присваеваем значок редактирования профиля и скрытый попап
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -17,14 +18,6 @@ const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 
 const keyEscape = 'Escape';
-
-const validationConfig = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_visible'
-}
 
 // Определяем функцию для показа/скрытия
 function togglePopup(popup) {
@@ -168,34 +161,6 @@ function viewImage(item) {
   lightbox.querySelector('.lightbox__image').src = item.link;
   lightbox.querySelector('.lightbox__image-title').textContent = item.name;
 }
-
-// Определяем массив исхоного набора объектов с изображениями и подписями для карточек
-const initialCards = [
-  {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 initialCards.forEach(addNewCard);
 
