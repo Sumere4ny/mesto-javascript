@@ -96,10 +96,10 @@ const popupPlaceLink = formAddNewCard.querySelector('.popup__input_place-link');
 
 // Подключаем логику заполнения карточек из массива исходных объектов
 const cardsSection = document.querySelector('.cards');
-const cardTemplate = document.querySelector('#card-template').content;
+const cardSelector = '#card-template';
 
 function addNewCard(item) {
-  const newCard = new Card(item, cardTemplate, viewImage)
+  const newCard = new Card(item, cardSelector, viewImage);
   cardsSection.prepend(newCard.generateCard());
 }
 

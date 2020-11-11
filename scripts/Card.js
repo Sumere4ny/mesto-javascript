@@ -1,12 +1,14 @@
 export class Card {
-  constructor(item, cardTemplate, viewImage) {
+  constructor(item, cardSelector, viewImage) {
     this._item = item;
-    this._cardTemplate = cardTemplate;
+    this._cardSelector = cardSelector;
     this._viewImage = viewImage;
   }
 
   _getTemplate() {
-    const newCard = this._cardTemplate.cloneNode(true);
+    const newCard = document.querySelector(this._cardSelector)
+      .content
+      .cloneNode(true);
     return newCard;
   }
 
