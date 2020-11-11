@@ -49,24 +49,31 @@ const lightbox = popupTypeLightbox.querySelector('.lightbox');
 const cardSelector = '#card-template';
 const keyEscape = 'Escape';
 
-// Определяем функцию для показа/скрытия
-function togglePopup(popup) {
-  popup.classList.toggle('popup_opened');
-  if (popup.classList.contains('popup_opened')) {
-    popup.addEventListener('click', closePopupByOverlay);
-    document.addEventListener('keydown', closePopupByEscape);
-  } else {
-    clearFormState(popup);
-    popup.removeEventListener('click', closePopupByOverlay);
-    document.removeEventListener('keydown', closePopupByEscape);
+// Составляем функцию на открытие попапа
+function openPopup(popup) {
+  if (popup === popupProfileEdit) {
+  // Подставляем textContent элементов профиля в значения полей формы
+    popupNameField.value = profileName.textContent;
+    popupProfession.value = profileProfession.textContent;
   }
+  popup.classList.add('popup_opened');
+  popup.addEventListener('click', closePopupByOverlay);
+  document.addEventListener('keydown', closePopupByEscape);
+}
+
+// Составляем фуекцию на закрытие попапа
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  clearFormState(popup);
+  popup.removeEventListener('click', closePopupByOverlay);
+  document.removeEventListener('keydown', closePopupByEscape);
 }
 
 // Определяем коллбэк на закрытие попапа по нажатию на 'Overlay'
 function closePopupByOverlay(evt) {
   const popupOpened = document.querySelector('.popup_opened');
   if (evt.target === evt.currentTarget) {
-    togglePopup(popupOpened);
+    closePopup(popupOpened);
   }
 }
 
@@ -74,16 +81,8 @@ function closePopupByOverlay(evt) {
 function closePopupByEscape(evt) {
   const popupOpened = document.querySelector('.popup_opened');
   if (evt.key === keyEscape) {
-    togglePopup(popupOpened);
+    closePopup(popupOpened);
   };
-}
-
-// Составляем функцию на открытие попапа
-function openPopup() {
-  // Подставляем textContent элементов профиля в значения полей формы
-  popupNameField.value = profileName.textContent;
-  popupProfession.value = profileProfession.textContent;
-  togglePopup(popupProfileEdit);
 }
 
 // Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
@@ -96,7 +95,7 @@ function handleFormSubmit (evt) {
     profileProfession.textContent = popupProfession.value;
 
     // Закрываем попап
-    togglePopup(popupProfileEdit);
+    closePopup(popupProfileEdit);
 }
 
 // Функция добавления новой карточки
@@ -115,7 +114,7 @@ function handlePlaceSubmit(evt) {
   };
   // Вызываем функцию добавления новой карточки
   addNewCard(item);
-  togglePopup(popupAddNewCard); // Закрываем отправленную форму
+  closePopup(popupAddNewCard); // Закрываем отправленную форму
 }
 
 function clearFormState(popup) {
@@ -128,28 +127,26 @@ function clearFormState(popup) {
 
 // И заранее определяем функцию для открытия попапа с изображениями, она понадобится при сборке карточек
 function viewImage(item) {
-  togglePopup(popupTypeLightbox);
+  openPopup(popupTypeLightbox);
   lightbox.querySelector('.lightbox__image').src = item.link;
   lightbox.querySelector('.lightbox__image-title').textContent = item.name;
 }
 
 // Вешаем обработчики событий для кнопок профиля и попапа
-profileEditButton.addEventListener('click', openPopup);
-popupCloseButton.addEventListener('click', () => {
-  togglePopup(popupProfileEdit);
-});
+profileEditButton.addEventListener('click', () => openPopup(popupProfileEdit));
+popupCloseButton.addEventListener('click', () => closePopup(popupProfileEdit));
 
 // Прикрепляем обработчик к форме, работающий на отправку
 formProfileEdit.addEventListener('submit', handleFormSubmit);
 
 // Навешиваем листенер на иконку закрытия попапа, в данном случае нашего лайтбокса
 lightbox.querySelector('.popup__close-button').addEventListener('click', () => {
-  togglePopup(popupTypeLightbox);
+  closePopup(popupTypeLightbox);
 });
 
 // Вешаем основные слушатели на открытие/закрытие попапа добавления нового места
-addNewcardButton.addEventListener('click', () => togglePopup(popupAddNewCard));
-closeCardButton.addEventListener('click', () => togglePopup(popupAddNewCard));
+addNewcardButton.addEventListener('click', () => openPopup(popupAddNewCard));
+closeCardButton.addEventListener('click', () => closePopup(popupAddNewCard));
 
 // Вешаем обработчик формы добавления нового места на сабмит при ее отправке
 formAddNewCard.addEventListener('submit', handlePlaceSubmit);
