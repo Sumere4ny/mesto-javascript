@@ -18,6 +18,35 @@ const popupProfession = formProfileEdit.querySelector('.popup__input_profession'
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
 
+// Определяем основные элементы добавления новой карточки
+const addNewcardButton = document.querySelector('.profile__add-button');
+const popupAddNewCard = document.querySelector('.popup_type_add-new-card');
+
+// Определяем и присваеваем форму и значок закрытия попапа
+const formAddNewCard = popupAddNewCard.querySelector('.popup__form');
+const closeCardButton = popupAddNewCard.querySelector('.popup__close-button');
+
+// Находим поля формы в DOM
+const popupPlaceName = formAddNewCard.querySelector('.popup__input_place-name');
+const popupPlaceLink = formAddNewCard.querySelector('.popup__input_place-link');
+
+// Подключаем логику заполнения карточек из массива исходных объектов
+const cardsSection = document.querySelector('.cards');
+
+//Экземпляры класса для валидации каждой формы
+const profileEditValidator = new FormValidator(validationConfig, formProfileEdit);
+profileEditValidator.enableValidation();
+
+const addNewPlaceValidator = new FormValidator(validationConfig, formAddNewCard);
+addNewPlaceValidator.enableValidation();
+
+// Назначаем константу для лайтбокса в DOM для переключения открывающего класса
+const popupTypeLightbox = document.querySelector('.popup_type_lightbox');
+
+// Также отбираем элемент самого лайтбокса для удобства работы
+const lightbox = popupTypeLightbox.querySelector('.lightbox');
+
+const cardSelector = '#card-template';
 const keyEscape = 'Escape';
 
 // Определяем функцию для показа/скрытия
@@ -41,7 +70,7 @@ function closePopupByOverlay(evt) {
   }
 }
 
-// Определяем функцию на закрытие попапа по нажатию на 'Escape'
+// Определяем коллбэк на закрытие попапа по нажатию на 'Escape'
 function closePopupByEscape(evt) {
   const popupOpened = document.querySelector('.popup_opened');
   if (evt.key === keyEscape) {
@@ -57,13 +86,12 @@ function openPopup() {
   togglePopup(popupProfileEdit);
 }
 
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
+// Обработчик «отправки» формы, хотя пока она никуда отправляться не будет
 function handleFormSubmit (evt) {
 
     evt.preventDefault(); // Предотвращаем логику по умолчанию
 
-    // Вставьте новые значения с помощью textContent
+    // Вставляем новые значения с помощью textContent
     profileName.textContent = popupNameField.value;
     profileProfession.textContent = popupProfession.value;
 
@@ -71,39 +99,13 @@ function handleFormSubmit (evt) {
     togglePopup(popupProfileEdit);
 }
 
-// Вешаем обработчики событий для кнопок профиля и попапа
-profileEditButton.addEventListener('click', openPopup);
-popupCloseButton.addEventListener('click', () => {
-  togglePopup(popupProfileEdit);
-});
-
-// Прикрепляем обработчик к форме, работающий на отправку
-formProfileEdit.addEventListener('submit', handleFormSubmit);
-
-// --------------------------------------------------------------------------------------------------------
-
-// Определяем основные элементы добавления новой карточки
-const addNewcardButton = document.querySelector('.profile__add-button');
-const popupAddNewCard = document.querySelector('.popup_type_add-new-card');
-
-// Определяем и присваеваем форму и значок закрытия попапа
-const formAddNewCard = popupAddNewCard.querySelector('.popup__form');
-const closeCardButton = popupAddNewCard.querySelector('.popup__close-button');
-
-// Находим поля формы в DOM
-const popupPlaceName = formAddNewCard.querySelector('.popup__input_place-name');
-const popupPlaceLink = formAddNewCard.querySelector('.popup__input_place-link');
-
-// Подключаем логику заполнения карточек из массива исходных объектов
-const cardsSection = document.querySelector('.cards');
-const cardSelector = '#card-template';
-
+// Функция добавления новой карточки
 function addNewCard(item) {
   const newCard = new Card(item, cardSelector, viewImage);
   cardsSection.prepend(newCard.generateCard());
 }
 
-// Создаем элементарный обработчик формы при отправке созданной карточки нового места
+// Создаем элементарный обработчик формы при отправке нового места
 function handlePlaceSubmit(evt) {
   evt.preventDefault(); // Предотвращаем логику по умолчанию
   // Создаем новый объект для карточки на основе данных из формы
@@ -116,16 +118,13 @@ function handlePlaceSubmit(evt) {
   togglePopup(popupAddNewCard); // Закрываем отправленную форму
 }
 
-// Назначаем константу для последнего попапа в DOM для переключения открывающего класса
-const popupTypeLightbox = document.querySelector('.popup_type_lightbox');
-
-// Также отбираем элемент самого лайтбокса для удобства работы
-const lightbox = popupTypeLightbox.querySelector('.lightbox');
-
-// Навешиваем листенер на иконку закрытия попапа, в данном случае нашего лайтбокса
-lightbox.querySelector('.popup__close-button').addEventListener('click', () => {
-  togglePopup(popupTypeLightbox);
-});
+function clearFormState(popup) {
+  if (popup === popupProfileEdit) {
+    profileEditValidator.clearFormOnClose();
+  } else if (popup === popupAddNewCard) {
+    addNewPlaceValidator.clearFormOnClose();
+  }
+}
 
 // И заранее определяем функцию для открытия попапа с изображениями, она понадобится при сборке карточек
 function viewImage(item) {
@@ -134,27 +133,25 @@ function viewImage(item) {
   lightbox.querySelector('.lightbox__image-title').textContent = item.name;
 }
 
-initialCards.forEach(addNewCard);
+// Вешаем обработчики событий для кнопок профиля и попапа
+profileEditButton.addEventListener('click', openPopup);
+popupCloseButton.addEventListener('click', () => {
+  togglePopup(popupProfileEdit);
+});
+
+// Прикрепляем обработчик к форме, работающий на отправку
+formProfileEdit.addEventListener('submit', handleFormSubmit);
+
+// Навешиваем листенер на иконку закрытия попапа, в данном случае нашего лайтбокса
+lightbox.querySelector('.popup__close-button').addEventListener('click', () => {
+  togglePopup(popupTypeLightbox);
+});
 
 // Вешаем основные слушатели на открытие/закрытие попапа добавления нового места
 addNewcardButton.addEventListener('click', () => togglePopup(popupAddNewCard));
-
 closeCardButton.addEventListener('click', () => togglePopup(popupAddNewCard));
 
 // Вешаем обработчик формы добавления нового места на сабмит при ее отправке
 formAddNewCard.addEventListener('submit', handlePlaceSubmit);
 
-//Экземпляры класса для валидации каждой формы
-const profileEditValidator = new FormValidator(validationConfig, formProfileEdit);
-profileEditValidator.enableValidation();
-
-const addNewPlaceValidator = new FormValidator(validationConfig, formAddNewCard);
-addNewPlaceValidator.enableValidation();
-
-function clearFormState(popup) {
-  if (popup === popupProfileEdit) {
-    profileEditValidator.clearFormOnClose();
-  } else if (popup === popupAddNewCard) {
-    addNewPlaceValidator.clearFormOnClose();
-  }
-}
+initialCards.forEach(addNewCard);
