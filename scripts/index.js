@@ -1,3 +1,4 @@
+import { Card } from './Card.js';
 import {FormValidator} from './FormValidator.js';
 import {initialCards, validationConfig} from './constants.js'
 
@@ -95,37 +96,11 @@ const popupPlaceLink = formAddNewCard.querySelector('.popup__input_place-link');
 
 // Подключаем логику заполнения карточек из массива исходных объектов
 const cardsSection = document.querySelector('.cards');
-
-function createCard(item) {
-    const cardTemplate = document.querySelector('#card-template').content;
-    const newCard = cardTemplate.cloneNode(true);
-    const imageArea = newCard.querySelector('.cards__image');
-
-    imageArea.src = item.link;
-    newCard.querySelector('.cards__title').textContent = item.name;
-
-    const likeButton = newCard.querySelector('.cards__like-button');
-
-    likeButton.addEventListener('click', (evt) => {
-        evt.target.classList.toggle('cards__like-button_active');
-    });
-
-    imageArea.addEventListener('click', () => {
-      viewImage(item);
-    });
-
-    const removeButton = newCard.querySelector('.cards__remove-button');
-
-    removeButton.addEventListener('click', () => {
-        const post = removeButton.closest('.cards__item');
-        post.remove();
-    });
-
-    return newCard;
-}
+const cardTemplate = document.querySelector('#card-template').content;
 
 function addNewCard(item) {
-  cardsSection.prepend(createCard(item));
+  const newCard = new Card(item, cardTemplate, viewImage)
+  cardsSection.prepend(newCard.generateCard());
 }
 
 // Создаем элементарный обработчик формы при отправке созданной карточки нового места
@@ -139,9 +114,6 @@ function handlePlaceSubmit(evt) {
   // Вызываем функцию добавления новой карточки
   addNewCard(item);
   togglePopup(popupAddNewCard); // Закрываем отправленную форму
-  // Очищаем значения полей в закрытом попапе
-  popupPlaceName.value = '';
-  popupPlaceLink.value = '';
 }
 
 // Назначаем константу для последнего попапа в DOM для переключения открывающего класса
