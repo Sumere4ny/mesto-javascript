@@ -25,8 +25,11 @@ function togglePopup(popup) {
   popup.classList.toggle('popup_opened');
   if (popup.classList.contains('popup_opened')) {
     popup.addEventListener('click', closePopupByOverlay);
+    document.addEventListener('keydown', closePopupByEscape);
   } else {
     clearFormState(popup);
+    popup.removeEventListener('click', closePopupByOverlay);
+    document.removeEventListener('keydown', closePopupByEscape);
   }
 }
 
@@ -45,9 +48,6 @@ function closePopupByEscape(evt) {
     togglePopup(popupOpened);
   };
 }
-
-// И сразу вешаем слушатель для 'Escape' на весь документ
-document.addEventListener('keydown', closePopupByEscape);
 
 // Составляем функцию на открытие попапа
 function openPopup() {
