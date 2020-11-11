@@ -137,9 +137,9 @@ function viewImage(item) {
 initialCards.forEach(addNewCard);
 
 // Вешаем основные слушатели на открытие/закрытие попапа добавления нового места
-addNewcardButton.addEventListener('click', () => { togglePopup(popupAddNewCard); });
+addNewcardButton.addEventListener('click', () => togglePopup(popupAddNewCard));
 
-closeCardButton.addEventListener('click', () => { togglePopup(popupAddNewCard); });
+closeCardButton.addEventListener('click', () => togglePopup(popupAddNewCard));
 
 // Вешаем обработчик формы добавления нового места на сабмит при ее отправке
 formAddNewCard.addEventListener('submit', handlePlaceSubmit);
