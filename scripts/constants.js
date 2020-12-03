@@ -36,4 +36,9 @@ const initialCards = [
   }
 ];
 
-export {initialCards, validationConfig}
+const profileSelectors = {
+  nameSelector: '.profile__name',
+  profSelector: '.profile__profession',
+}
+
+export {initialCards, validationConfig, profileSelectors}

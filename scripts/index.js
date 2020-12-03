@@ -1,6 +1,7 @@
-import { Card } from './Card.js';
-import {FormValidator} from './FormValidator.js';
-import {initialCards, validationConfig} from './constants.js'
+import Card from './Card.js';
+import UserInfo from './UserInfo.js';
+import FormValidator from './FormValidator.js';
+import {initialCards, validationConfig, profileSelectors} from './constants.js'
 
 // Определяем и присваеваем значок редактирования профиля и скрытый попап
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -14,9 +15,7 @@ const popupCloseButton = popupProfileEdit.querySelector('.popup__close-button');
 const popupNameField = formProfileEdit.querySelector('.popup__input_name-field');
 const popupProfession = formProfileEdit.querySelector('.popup__input_profession');
 
-// Выбераем элементы, куда должны быть вставлены значения полей
-const profileName = document.querySelector('.profile__name');
-const profileProfession = document.querySelector('.profile__profession');
+const userInfo = new UserInfo(profileSelectors);
 
 // Определяем основные элементы добавления новой карточки
 const addNewcardButton = document.querySelector('.profile__add-button');
@@ -52,10 +51,12 @@ const keyEscape = 'Escape';
 // Составляем функцию на открытие попапа
 function openPopup(popup) {
   if (popup === popupProfileEdit) {
+  const profileInfo = userInfo.getUserInfo();
   // Подставляем textContent элементов профиля в значения полей формы
-    popupNameField.value = profileName.textContent;
-    popupProfession.value = profileProfession.textContent;
+    popupNameField.value = profileInfo.name;
+    popupProfession.value = profileInfo.profession;
   }
+
   popup.classList.add('popup_opened');
   popup.addEventListener('click', closePopupByOverlay);
   document.addEventListener('keydown', closePopupByEscape);
@@ -89,10 +90,12 @@ function closePopupByEscape(evt) {
 function handleFormSubmit (evt) {
 
     evt.preventDefault(); // Предотвращаем логику по умолчанию
-
+    const newProfileInfo = {
+      name: popupNameField.value,
+      profession: popupProfession.value
+    }
     // Вставляем новые значения с помощью textContent
-    profileName.textContent = popupNameField.value;
-    profileProfession.textContent = popupProfession.value;
+    userInfo.setUserInfo(newProfileInfo);
 
     // Закрываем попап
     closePopup(popupProfileEdit);

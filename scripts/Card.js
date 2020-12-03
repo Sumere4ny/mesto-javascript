@@ -1,4 +1,4 @@
-export class Card {
+export default class Card {
   constructor(item, cardSelector, viewImage) {
     this._item = item;
     this._cardSelector = cardSelector;
