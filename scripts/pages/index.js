@@ -1,7 +1,7 @@
-import Card from './Card.js';
-import UserInfo from './UserInfo.js';
-import FormValidator from './FormValidator.js';
-import {initialCards, validationConfig, profileSelectors} from './constants.js'
+import Card from '../components/Card.js';
+import UserInfo from '../components/UserInfo.js';
+import FormValidator from '../components/FormValidator.js';
+import {initialCards, validationConfig, profileSelectors} from '../utils/constants.js'
 
 // Определяем и присваеваем значок редактирования профиля и скрытый попап
 const profileEditButton = document.querySelector('.profile__edit-button');
