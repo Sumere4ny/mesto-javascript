@@ -60,8 +60,7 @@ export default class FormValidator {
     });
   }
 
-  clearFormOnClose() {
-    this._formElement.reset()
+  clearFormOnOpen() {    
     this._formInputFields.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });

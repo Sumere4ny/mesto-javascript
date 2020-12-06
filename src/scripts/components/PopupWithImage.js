@@ -1,8 +1,8 @@
 import Popup from "./Popup.js";
 
 class PopupWithImage extends Popup {
-  constructor (popupSelector, closeButtonSelector) {
-    super(popupSelector, closeButtonSelector);
+  constructor (popupSelector) {
+    super(popupSelector);
     this._image = this._popup.querySelector('.lightbox__image');
     this._title = this._popup.querySelector('.lightbox__image-title');
   }
