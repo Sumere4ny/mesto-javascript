@@ -7,6 +7,8 @@ export default class FormValidator {
     this._inputErrorClass = validationConfig.inputErrorClass;
     this._errorClass = validationConfig.errorClass;
     this._formElement = formElement;
+    this._formInputFields = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._submit = this._formElement.querySelector(this._submitButtonSelector);
   }
 
   _showInputError(inputElement, errorMessage) {
@@ -32,14 +34,21 @@ export default class FormValidator {
     }
   }
 
+  _allInputFieldsValid() {
+    return this._formInputFields.some((field) => !field.validity.valid);
+  }
+
   _toggleSubmitButtonState() {
-    const allInputFieldsValid = this._formInputFields.every((field) => field.validity.valid);
-    if (!allInputFieldsValid) {
+    if (this._allInputFieldsValid()) {
       this._disableSubmitButton();
     } else {
-      this._submit.classList.remove(this._inactiveButtonClass);
-      this._submit.removeAttribute('disabled');
+      this._enableSubmitButton();
     }
+  }
+
+  _enableSubmitButton() {
+    this._submit.classList.remove(this._inactiveButtonClass);
+    this._submit.removeAttribute('disabled');
   }
 
   _disableSubmitButton() {
@@ -47,11 +56,9 @@ export default class FormValidator {
     this._submit.setAttribute('disabled', true);
   }
 
-  _setEventListeners() {
-    this._formInputFields = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    this._submit = this._formElement.querySelector(this._submitButtonSelector);
+  _setEventListeners() {    
     // Подключаем основную логику обработчика для слушателей
-    this._toggleSubmitButtonState();
+    this._toggleSubmitButtonState()
     this._formInputFields.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
@@ -71,7 +78,7 @@ export default class FormValidator {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    // Вешаем слушатели инпутов на все поля
+    // Вешаем слушатели инпутов на все поля    
     this._setEventListeners();
   }
 }

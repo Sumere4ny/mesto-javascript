@@ -18,22 +18,20 @@ export default class Popup {
     };
   }
 
-  open() {     
-    this._popup.classList.add('popup_opened');
-    this.setEventListeners();
-  }
-
-  close() {
-    this._popup.removeEventListener("click", this._handleOverlayClose);
-    document.removeEventListener('keydown', this._handleEscClose);
-    this._popup.classList.remove('popup_opened');
+  open() {
+    this._popup.classList.add('popup_opened'); 
+    document.addEventListener('keydown', this._handleEscClose); 
   }
   
-  setEventListeners() {
-    this._popup.addEventListener("click", this._handleOverlayClose);
-    document.addEventListener('keydown', this._handleEscClose);
-    const closeButton = this._popup.querySelector('.popup__close-button');
-    closeButton.addEventListener("click", () => this.close());
+  close() {
+    document.removeEventListener('keydown', this._handleEscClose); 
+    this._popup.classList.remove('popup_opened'); 
   }
+  
+  setEventListeners() { 
+    this._popup.addEventListener("click", this._handleOverlayClose); 
+    const closeButton = this._popup.querySelector('.popup__close-button'); 
+    closeButton.addEventListener("click", () => this.close()); 
+  } 
 
 }

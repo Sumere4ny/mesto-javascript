@@ -1,11 +1,11 @@
-import '../../pages/index.css'
+import './index.css'
 
-import Card from '../components/Card.js';
-import UserInfo from '../components/UserInfo.js';
-import FormValidator from '../components/FormValidator.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import Section from '../components/Section.js';
+import Card from '../scripts/components/Card.js';
+import UserInfo from '../scripts/components/UserInfo.js';
+import FormValidator from '../scripts/components/FormValidator.js';
+import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import Section from '../scripts/components/Section.js';
 import {
   initialCards, 
   validationConfig, 
@@ -14,10 +14,11 @@ import {
   popupNameField,
   popupProfession,
   formAddNewCard
-} from '../utils/constants.js';
+} from '../scripts/utils/constants.js';
 
 // Задаем экземпляр класса при открытии просмотра изображения
-const popapImage = new PopupWithImage('.popup_type_lightbox');
+const popupImage = new PopupWithImage('.popup_type_lightbox');
+popupImage.setEventListeners(); 
 
 // Рендерим наш первоначальный массив карточек мест по России
 const defaultCardList = new Section(
@@ -26,7 +27,7 @@ const defaultCardList = new Section(
       const card = new Card(item,
         '#card-template',
         { handleCardClick: () => {
-          popapImage.open(item.name, item.link)
+          popupImage.open(item.name, item.link)
         }});
       const cardElement = card.generateCard();
       defaultCardList.addItem(cardElement);
@@ -43,6 +44,7 @@ const addNewPlaceValidator = new FormValidator(validationConfig, formAddNewCard)
 addNewPlaceValidator.enableValidation();
 
 const editPopup = new PopupWithForm('.popup_type_edit-profile', handleProfileSubmit);
+editPopup.setEventListeners();
 
 const userInfo = new UserInfo(profileSelectors);
 
@@ -63,6 +65,7 @@ function handleProfileSubmit(formInputValues) {
 }
 
 const cardPopup = new PopupWithForm('.popup_type_add-new-card', handlePlaceSubmit);
+cardPopup.setEventListeners();
 document.querySelector('.profile__add-button').addEventListener('click', () => {
   addNewPlaceValidator.clearFormOnOpen();
   cardPopup.open();  
@@ -73,7 +76,7 @@ function handlePlaceSubmit(item) {
   const card = new Card(item,
     '#card-template',
     { handleCardClick: () => {
-      popapImage.open(item.name, item.link)
+      popupImage.open(item.name, item.link)
     }});
   const cardElement = card.generateCard();
   defaultCardList.addItem(cardElement);
