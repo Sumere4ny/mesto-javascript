@@ -1,5 +1,5 @@
 import './index.css'
-
+import Api from '../scripts/components/Api.js';
 import Card from '../scripts/components/Card.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import FormValidator from '../scripts/components/FormValidator.js';
@@ -7,7 +7,6 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import Section from '../scripts/components/Section.js';
 import {
-  initialCards, 
   validationConfig, 
   profileSelectors, 
   formProfileEdit,
@@ -15,6 +14,8 @@ import {
   popupProfession,
   formAddNewCard
 } from '../scripts/utils/constants.js';
+
+const initialCards = {};
 
 // Задаем экземпляр класса при открытии просмотра изображения
 const popupImage = new PopupWithImage('.popup_type_lightbox');

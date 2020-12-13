@@ -1,9 +1,11 @@
-.cards__description{
-  max-width: 282px;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  border-radius: 0 0 10px 10px;
-  padding: 25px 17px 31px 0;
+.cards__description{  
   color: black;
+  background-color: white;
+  min-height: 79px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 21px;
+  padding-left: 21px;
+  border-radius: 0 0 10px 10px;
 }
