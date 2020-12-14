@@ -4,7 +4,7 @@ export default class Api {
         this._headers = headers;
     }
 
-    // общий обработчик запроса
+    // Общий обработчик запросов
     _getResponseData(res) {
         if (!res.ok) {
             return Promise.reject(`Ошибка: ${res.status}`);
@@ -12,7 +12,7 @@ export default class Api {
         return res.json();
     }
 
-    // получаем массив существующих карточек
+    // Получаем массив существующих карточек
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers,
@@ -21,7 +21,7 @@ export default class Api {
         .then(this._getResponseData);
     }
 
-    // получение информации текущего профиля
+    // получаем основные данные текущего профиля
     getProfileData() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
@@ -30,7 +30,7 @@ export default class Api {
         .then(this._getResponseData);
     }
 
-    // отправка обновленной информации профиля на сервер
+    // Отправляем обновленную информацию профиля
     sendProfileData(name, about) {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,

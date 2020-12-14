@@ -22,7 +22,7 @@
 
 ## Проект на Github Pages
 
-[Ссылка на проект](https://sumere4ny.github.io/mesto/)
+[Ссылка на проект](https://sumere4ny.github.io/mesto-vanilla-js/)
 
 ## Дополнительная информация
 

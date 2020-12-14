@@ -8,38 +8,49 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import Section from '../scripts/components/Section.js';
 import {
   validationConfig, 
+  requestParams,
   profileSelectors, 
   formProfileEdit,
+  formAvatarImage,
   popupNameField,
   popupProfession,
   formAddNewCard
 } from '../scripts/utils/constants.js';
 
-const initialCards = {};
-
 // Задаем экземпляр класса при открытии просмотра изображения
 const popupImage = new PopupWithImage('.popup_type_lightbox');
 popupImage.setEventListeners(); 
 
+const api = new Api(requestParams);
+
+api.getInitialCards().then((cards) => {
+  generateInitialCards(cards);
+});
+
+const generateInitialCards = (cards) => {
 // Рендерим наш первоначальный массив карточек мест по России
-const defaultCardList = new Section(
-  { items: initialCards,
-    renderer: ((item) => {
-      const card = new Card(item,
-        '#card-template',
-        { handleCardClick: () => {
-          popupImage.open(item.name, item.link)
-        }});
-      const cardElement = card.generateCard();
-      defaultCardList.addItem(cardElement);
-    })
-  },
-  '.cards');
-defaultCardList.renderItems();
+  const defaultCardList = new Section(
+    { items: cards,
+      renderer: ((item) => {
+        const card = new Card(item,
+          '#card-template',
+          { handleCardClick: () => {
+            popupImage.open(item.name, item.link)
+          }});
+        const cardElement = card.generateCard();
+        defaultCardList.addItem(cardElement);
+      })
+    },
+    '.cards');
+  defaultCardList.renderItems();
+}
 
 //Экземпляры класса для валидации каждой формы
 const profileEditValidator = new FormValidator(validationConfig, formProfileEdit);
 profileEditValidator.enableValidation();
+
+const avatarImageValidator = new FormValidator(validationConfig, formAvatarImage);
+addNewPlaceValidator.enableValidation();
 
 const addNewPlaceValidator = new FormValidator(validationConfig, formAddNewCard);
 addNewPlaceValidator.enableValidation();
