@@ -7,9 +7,9 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import Section from '../scripts/components/Section.js';
 import {
-  validationConfig, 
+  validationConfig,
   requestParams,
-  profileSelectors, 
+  profileSelectors,
   formProfileEdit,
   formAvatarImage,
   popupNameField,
@@ -19,9 +19,11 @@ import {
 
 // Задаем экземпляр класса при открытии просмотра изображения
 const popupImage = new PopupWithImage('.popup_type_lightbox');
-popupImage.setEventListeners(); 
+popupImage.setEventListeners();
 
 const api = new Api(requestParams);
+
+let defaultCardList;
 
 api.getInitialCards().then((cards) => {
   generateInitialCards(cards);
@@ -29,7 +31,7 @@ api.getInitialCards().then((cards) => {
 
 const generateInitialCards = (cards) => {
 // Рендерим наш первоначальный массив карточек мест по России
-  const defaultCardList = new Section(
+  defaultCardList = new Section(
     { items: cards,
       renderer: ((item) => {
         const card = new Card(item,
@@ -50,7 +52,7 @@ const profileEditValidator = new FormValidator(validationConfig, formProfileEdit
 profileEditValidator.enableValidation();
 
 const avatarImageValidator = new FormValidator(validationConfig, formAvatarImage);
-addNewPlaceValidator.enableValidation();
+avatarImageValidator.enableValidation();
 
 const addNewPlaceValidator = new FormValidator(validationConfig, formAddNewCard);
 addNewPlaceValidator.enableValidation();
@@ -80,11 +82,11 @@ const cardPopup = new PopupWithForm('.popup_type_add-new-card', handlePlaceSubmi
 cardPopup.setEventListeners();
 document.querySelector('.profile__add-button').addEventListener('click', () => {
   addNewPlaceValidator.clearFormOnOpen();
-  cardPopup.open();  
+  cardPopup.open();
 });
 
 function handlePlaceSubmit(item) {
-  console.log(item);
+  console.log(defaultCardList);
   const card = new Card(item,
     '#card-template',
     { handleCardClick: () => {
