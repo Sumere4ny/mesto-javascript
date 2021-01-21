@@ -1,6 +1,7 @@
 export default class Card {
-  constructor(item, cardSelector, { handleCardClick }) {
+  constructor(item, cardSelector, myCard, { handleCardClick }) {
     this._item = item;
+    this._myCard = myCard;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -32,6 +33,9 @@ export default class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
     this._cardImage = this._element.querySelector('.cards__image');
+    if (this._myCard) {
+      this._element.querySelector('.cards__remove-button').style.display = 'block';
+    }
     this._element.querySelector('.cards__title').textContent = this._item.name;
     this._cardImage.src = this._item.link;
     this._cardImage.alt = this._item.name;

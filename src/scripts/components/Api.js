@@ -31,7 +31,7 @@ export default class Api {
     }
 
     // Отправляем обновленную информацию профиля
-    sendProfileData(name, about) {
+    sendProfileData({ name, about }) {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
             method: 'PATCH',

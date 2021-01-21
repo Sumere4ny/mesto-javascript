@@ -56,7 +56,7 @@ export default class FormValidator {
     this._submit.setAttribute('disabled', true);
   }
 
-  _setEventListeners() {    
+  _setEventListeners() {
     // Подключаем основную логику обработчика для слушателей
     this._toggleSubmitButtonState()
     this._formInputFields.forEach((inputElement) => {
@@ -67,9 +67,9 @@ export default class FormValidator {
     });
   }
 
-  clearFormOnOpen() {    
+  clearFormOnOpen() {
     this._formInputFields.forEach((inputElement) => {
-      this._hideInputError(inputElement);
+    this._hideInputError(inputElement);
     });
     this._disableSubmitButton();
   }
@@ -78,7 +78,7 @@ export default class FormValidator {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    // Вешаем слушатели инпутов на все поля    
+    // Вешаем слушатели инпутов на все поля
     this._setEventListeners();
   }
 }
