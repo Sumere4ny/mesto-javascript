@@ -28,23 +28,22 @@ const userInfo = new UserInfo(profileSelectors);
 // Подключаем логику для работы с удал. сервером
 const api = new Api(requestParams);
 
-// Получаем от сервера начальные данные профиля
-api.getProfileData()
-  .then((profile) => {
-    userInfo.setUserInfo(profile);
-    userInfo.setNewAvatar(profile.avatar);
-  })
-  .catch(err => console.log(err));
-
 // Готовим глобальную область под экземпляр секции
 let defaultCardList;
 
-// И сразу запрашиваем стартовый набор карточек
-api.getInitialCards()
-  .then(cards => generateInitialCards(cards))
-  .catch(err => console.log(err));
+Promise.all([
+    api.getProfileData(),
+    api.getInitialCards()
+])
+.then((values)=>{
+    const [userData, initialCards] = values;
+    userInfo.setUserInfo(userData);
+    userInfo.setNewAvatar(userData.avatar);
+    generateInitialCards(initialCards);
+})
+.catch(err => console.log(err));
 
-const renderElement = function(item) {
+const renderElement = function(item, isArray) {
   const myId = userInfo.getUserInfo().id;
   const card = new Card(item,
     '#card-template',
@@ -64,7 +63,7 @@ const renderElement = function(item) {
       }
     });
     const cardElement = card.generateCard();
-    defaultCardList.addItem(cardElement);
+    defaultCardList.addItem(cardElement, isArray);
 }
 
 const generateInitialCards = (cards) => {
@@ -72,7 +71,7 @@ const generateInitialCards = (cards) => {
   defaultCardList = new Section(
     { items: cards,
       renderer: ((item) => {
-        renderElement(item);
+        renderElement(item, true);
       })
     },
     '.cards');
@@ -95,9 +94,11 @@ deletePopup.setEventListeners();
 
 function handleConfirmSubmit(cardId) {
   api.deleteCard(cardId)
-    .then(data => console.log(data))
+    .then((data) => {
+      console.log(data);
+      deletePopup.close();
+    })
     .catch(err => console.log(err));
-  deletePopup.close();
 };
 
 // Создаем наши попапы и подключаем в конструктор каждого обработчики отправки формы
@@ -135,11 +136,11 @@ document.querySelector('.profile__avatar-container').addEventListener('click', (
 function handleAvatarSubmit({ link }) {
   // Отправляем новый адрес на сервер
   api.editAvatar(link)
-    .then(data => console.log(data))
+    .then((data) => {
+      console.log(data);
+      userInfo.setNewAvatar(link);
+    })
     .catch(err => console.log(err));
-  // Обновляем аватар на странице
-  userInfo.setNewAvatar(link);
-  // Закрываем попап
   avatarPopup.close();
 }
 
@@ -153,7 +154,7 @@ document.querySelector('.profile__add-button').addEventListener('click', () => {
 
 function handlePlaceSubmit(item) {
   api.createCard(item)
-    .then(newCard => renderElement(newCard))
+    .then(newCard => renderElement(newCard, false))
     .catch(err => console.log(err));
   cardPopup.close();
 }
