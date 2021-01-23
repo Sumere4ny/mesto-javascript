@@ -117,10 +117,11 @@ document.querySelector('.profile__edit-button').addEventListener('click', () => 
 function handleProfileSubmit(formInputValues) {
   // Отправляем новые значения на сервер и меняем
   api.setProfileData(formInputValues)
-    .then(profile => userInfo.setUserInfo(profile))
+    .then((profile) => {
+      userInfo.setUserInfo(profile);
+      editPopup.close();
+    })
     .catch(err => console.log(err));
-  // Закрываем попап
-  editPopup.close();
 }
 
 // Создаем попап для формы имзенения аватара
@@ -137,11 +138,10 @@ function handleAvatarSubmit({ link }) {
   // Отправляем новый адрес на сервер
   api.editAvatar(link)
     .then((data) => {
-      console.log(data);
       userInfo.setNewAvatar(link);
+      avatarPopup.close();
     })
     .catch(err => console.log(err));
-  avatarPopup.close();
 }
 
 // Наконец добиваем необходимый попап добавления новой карточки места и обработчик
