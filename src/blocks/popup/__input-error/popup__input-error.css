@@ -7,7 +7,7 @@
   top: 150px;
 }
 
-.popup__input-error:last-of-type {
+.popup__input-error:nth-of-type(even) {
   top: 210px;
 }
 
@@ -18,7 +18,7 @@
 }
 
 @media screen and (max-width: 510px) {
-  .popup__input-error:last-of-type {
+  .popup__input-error:nth-of-type(even) {
     line-height: 1;
     top: 150px;
   }

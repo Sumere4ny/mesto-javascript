@@ -1,12 +1,12 @@
 
-.profile__avatar-conteiner {
+.profile__avatar-container {
     position: relative;
     margin-right: 30px;
     border-radius: 50%;
     cursor: pointer;
 }
 
-.profile__avatar-conteiner:hover::before {
+.profile__avatar-container:hover::before {
     position: absolute;
     top: 0;
     left: 0;

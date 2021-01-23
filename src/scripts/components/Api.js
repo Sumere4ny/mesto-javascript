@@ -21,7 +21,7 @@ export default class Api {
         .then(this._getResponseData);
     }
 
-    // получаем основные данные текущего профиля
+    // Получаем основные данные текущего профиля
     getProfileData() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
@@ -31,7 +31,7 @@ export default class Api {
     }
 
     // Отправляем обновленную информацию профиля
-    sendProfileData(name, about) {
+    setProfileData({ name, about }) {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
             method: 'PATCH',
@@ -45,11 +45,11 @@ export default class Api {
     }
 
     // Создание и удаление карточки
-    createCard(dataCard) {
+    createCard({ name, link }) {
         return fetch(`${this._baseUrl}/cards`, {
             method: "POST",
-            headers: this.headers,
-            body: JSON.stringify({ name: dataCard.name, link: dataCard.link })
+            headers: this._headers,
+            body: JSON.stringify({ name: name, link: link })
         }).then(this._getResponseData)
 
     }
@@ -57,7 +57,7 @@ export default class Api {
     deleteCard(id) {
         return fetch(`${this._baseUrl}/cards/${id}`, {
             method: "DELETE",
-            headers: this.headers,
+            headers: this._headers,
         }).then(this._getResponseData)
 
     }
@@ -66,7 +66,7 @@ export default class Api {
     putLike(id) {
         return fetch(`${this._baseUrl}/cards/likes/${id}`, {
             method: "PUT",
-            headers: this.headers,
+            headers: this._headers,
         }).then(this._getResponseData)
 
     }
@@ -74,7 +74,7 @@ export default class Api {
     deleteLike(id) {
         return fetch(`${this._baseUrl}/cards/likes/${id}`, {
             method: "DELETE",
-            headers: this.headers,
+            headers: this._headers,
         }).then(this._getResponseData)
 
     }
@@ -83,7 +83,7 @@ export default class Api {
     editAvatar(avatarUrl) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: "PATCH",
-            headers: this.headers,
+            headers: this._headers,
             body: JSON.stringify({ avatar: avatarUrl })
         }).then(this._getResponseData)
     }

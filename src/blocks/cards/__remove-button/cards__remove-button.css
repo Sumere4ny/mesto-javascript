@@ -1,6 +1,7 @@
 .cards__remove-button{
   width: 18px;
   height: 19.3px;
+  display: none;
   position: absolute;
   top: 18px;
   right: 15px;
