@@ -10,6 +10,9 @@ class PopupWithImage extends Popup {
   open(name, link) {
     this._image.alt = name;
     this._image.src = link;
+    this._image.onerror = function () {
+      this.src = 'https://chelyabinsk.artdeco-shop.ru/img/dummy.png';
+    }
     this._title.textContent = name;
     super.open();
   }

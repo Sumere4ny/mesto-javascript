@@ -8,11 +8,10 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "dev": "webpack serve"
-
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sumere4ny/mesto.git"
+    "url": "git+https://github.com/Sumere4ny/mesto-javascript.git"
   },
   "author": "Pavel Kiselev",
   "license": "ISC",

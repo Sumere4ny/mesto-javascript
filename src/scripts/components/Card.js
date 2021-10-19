@@ -84,6 +84,9 @@ export default class Card {
     }
     this._element.querySelector('.cards__title').textContent = this._item.name;
     this._cardImage.src = this._item.link;
+    this._cardImage.onerror = function () {
+      this.src = 'https://chelyabinsk.artdeco-shop.ru/img/dummy.png';
+    }
     this._cardImage.alt = this._item.name;
     this.renderLikes();
     return this._element;
